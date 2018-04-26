@@ -1,0 +1,54 @@
+/* Base Application Styles */
+/* * {
+  font-size: 1.05em;
+} */
+body {
+  color: black;
+  background: #FBFBFB;
+}
+
+p {
+  text-align: left;
+}
+
+@media (min-width: 500px) {
+    .content {
+      /* max-width: 1080px; */
+      /* margin: 0 auto; */
+      /* padding: 20px; */
+      text-align: center;
+    }
+}
+.loader {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /* background: white; */
+  z-index: 9999;
+}
+.index img {
+  margin: 40px auto;
+  border-radius: 4px;
+  background: #fff;
+  display: block;
+}
+
+.clickable {
+  padding: 5px;
+}
+.clickable:hover {
+  cursor: pointer;
+  background-color: #FAFAFA;
+  border: 1px solid black;
+}
+
+.index .notice {
+  margin: 20px auto;
+  padding: 15px 0;
+  text-align: center;
+  border: 1px solid #000;
+  border-width: 1px 0;
+  background: #666;
+}

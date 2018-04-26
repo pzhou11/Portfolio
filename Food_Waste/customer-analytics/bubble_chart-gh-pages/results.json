@@ -1,0 +1,72 @@
+[
+    {
+        "grant_title": "YOGURT",
+        "id": "196",
+        "organization": "DAIRY",
+        "total_amount": "3.39",
+        "gp": "HIGH",
+        "WASTE_DATA_ENTRY_DT": "2018-03-08",
+        "USER_ID": "184",
+        "start_year": "3"
+    },
+    {
+        "grant_title": "COOKED PORK",
+        "id": "177",
+        "organization": "MEAT",
+        "total_amount": "4.94",
+        "gp": "HIGH",
+        "WASTE_DATA_ENTRY_DT": "2018-03-08",
+        "USER_ID": "184",
+        "start_year": "3"
+    },
+    {
+        "grant_title": "SQUASH",
+        "id": "158",
+        "organization": "FRESH VEGETABLES",
+        "total_amount": "0.23",
+        "gp": "HIGH",
+        "WASTE_DATA_ENTRY_DT": "2018-03-08",
+        "USER_ID": "184",
+        "start_year": "3"
+    },
+    {
+        "grant_title": "HOT DOGS",
+        "id": "139",
+        "organization": "MEAT",
+        "total_amount": "19.07",
+        "gp": "HIGH",
+        "WASTE_DATA_ENTRY_DT": "2018-03-15",
+        "USER_ID": "184",
+        "start_year": "2"
+    },
+    {
+        "grant_title": "HOT DOGS",
+        "id": "120",
+        "organization": "MEAT",
+        "total_amount": "5.80",
+        "gp": "HIGH",
+        "WASTE_DATA_ENTRY_DT": "2018-03-15",
+        "USER_ID": "184",
+        "start_year": "2"
+    },
+    {
+        "grant_title": "LETTUCE LEAF",
+        "id": "101",
+        "organization": "FRESH VEGETABLES",
+        "total_amount": "8.69",
+        "gp": "HIGH",
+        "WASTE_DATA_ENTRY_DT": "2018-03-15",
+        "USER_ID": "184",
+        "start_year": "2"
+    },
+    {
+        "grant_title": "LETTUCE LEAF",
+        "id": "82",
+        "organization": "FRESH VEGETABLES",
+        "total_amount": "0.98",
+        "gp": "HIGH",
+        "WASTE_DATA_ENTRY_DT": "2018-03-15",
+        "USER_ID": "184",
+        "start_year": "2"
+    }
+]

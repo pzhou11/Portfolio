@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<title>Predicting Food Purchase and Consumption Patterns to Prevent Waste Capstone</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html {
+    height: 100%;
+    color: #777;
+    line-height: 1.8;
+}
+
+/* Create Hover Effect on Image */
+.imageContainer > img:hover {
+  transform:scale(2);
+}
+
+/* Create a Parallax Effect */
+.bgimg-1, .bgimg-2, .bgimg-3, .bgimg-4, .bgimg-5, .bgimg-6, .bgimg-7, .bgimg-8 {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* First image */
+.bgimg-1 {
+    background-image: url('images/title_background.jpeg');
+    min-height: 100%;
+}
+
+/* Second image (Inroduction) */
+.bgimg-2 {
+    background-image: url("images/intro.jpg");
+    min-height: 200px;
+}
+/* Grocery saver */
+.bgimg-5 {
+    background-image: url("images/grocery_saver.png");
+    min-height: 200px;
+}
+
+/* Seventh image (Data) */
+.bgimg-7 {
+    background-image: url("images/data.jpg");
+    min-height: 200px;
+}
+
+/* Eighth image (About Us) */
+.bgimg-8 {
+    background-image: url("images/about_us.jpg");
+    min-height: 200px;
+}
+
+.w3-wide {letter-spacing: 10px;}
+.w3-hover-opacity {cursor: pointer;}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1024px) {
+    .bgimg-1, .bgimg-2, .bgimg-3 {
+        background-attachment: scroll;
+    }
+}
+</style>
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar w3-white" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="#home" class="w3-bar-item w3-button"><i class="fa fa-home"></i> Home</a>
+    <a href="#introduction" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-circle"></i> Introduction</a>
+    <a href="#data" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-database"></i> The Data</a>
+    <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> About Us</a>
+    <a href="http://people.ischool.berkeley.edu/~chqngh/w210/informational-analytics/" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-area-chart"></i> Infomatics</a>
+    <a href="http://50.97.219.173/login" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-binoculars"></i> Grocery Saver</a>
+    <!-- <a href="http://0.0.0.0:8585/" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-area-chart"></i> Infomatics</a>
+    <a href="http://0.0.0.0:8000/login" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-binoculars"></i> Grocery Saver</a> -->
+  </div>
+</div>
+
+<!-- First Parallax Image with Project Title -->
+<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
+  <div class="w3-display-middle">
+    <p style="background-color:black!important" class="w3-center w3-padding-large w3-black w3-xxlarge w3-wide w3-animate-opacity">
+      Predicting Food Purchase and Consumption Patterns to Prevent Waste
+      <span class="w3-hide-small"></span>
+    </p>
+  </div>
+</div>
+
+<!-- Second Parallax Image for Introduction Section1 -->
+<div class="bgimg-2 w3-display-container w3-opacity-min" id="introduction">
+  <div class="w3-display-middle">
+    <span class="w3-center w3-padding-large w3-gray w3-xlarge w3-wide w3-animate-opacity w3-opacity-min"><b>INTRODUCTION</b></span>
+  </div>
+</div>
+
+<!-- Introduction section -->
+<div class="w3-content w3-container w3-padding-large">
+  <div style="margin-left:90px; margin-right:90px; margin-top:30px">
+    <p class="w3-center w3-large"><em><font face = 'times' size = '5px' color="#F1C40F">The Problem</font></em></p>
+    <p class="w3-large" style="text-align:justify">
+      Studies estimate that 52% of food produced in the United States is thrown away each year; almost 30% of that discarded food is wasted by consumers. This translates into $30 billion dollars a year that consumers are effectively throwing into the trash.
+      <br />
+      Further complicating matters is the difficulty in measuring food loss. It's hard enough to estimate aggregated food loss, but it's next to impossible to study who wastes food and why. There is no centralized system that allows for the easy collection of this data, which could be critical in both understanding why people throw away food and designing ways to fight food waste.
+    </p>
+    <p class="w3-center w3-large"><em><font face = 'times' size = '5px' color="#F1C40F">Our Product</font></em></p>
+    <p class="w3-large">
+      We have created GrocerySaver, a consumer oriented application with two key purposes. The first is to offer consumers an easy to use, tailored grocery list designed to minimize food loss. This directly helps people better control their food wastage. The second purpose is that this system allows for the easy collection of waste data that does not otherwise exist.
+      <br />
+      Our product allows consumers to upload grocery receipts and note how much of each item they wasted. The next time the consumer is ready to shop, we run an algorithm to create a customized grocery list based on past purchase patterns, and then use regression to predict how much of each item the user should buy to achieve their desired waste target. Finally, we provide several visual dashboards so that users can see for themselves what foods they are wasting the most and how much money they are tossing into the trash. Our product highlights money savings because both a John Hopkins study and our own surveys corroborate that saving money is one of the primary reasons that people try to avoid wasting food. We use this tactic to incentivize users to enter their food wastage.
+    </p>
+    <p class="w3-center w3-large"><em><font face = 'times' size = '5px' color="#F1C40F">Potential Impact</font></em></p>
+    <p class="w3-large" style="text-align:justify">
+      By offering consumers an easy method to save both time and money when grocery shopping, we empower consumers to save food, time and money. A NRDC report noted that trouble making grocery lists is one issue that leads to food wastage. While there are other list making systems, they often require tedious manual entry. Using optimal character recognition to scan receipts, we minimize data entry. Our algorithm then brings up a suggested grocery list, whereas many other list-making software require the user to populate the list themselves.  Furthermore, we provide users critical feedback that allows them to better understand what they are wasting.
+      <br />
+      The second impact is that this system allows for the collection of data that was impossible before. Governments around the world spend a lot of money trying to prevent food waste, and having in-depth data regarding the patterns that surround waste could provide critical insight. This type of data collection is an opt-in system.
+    </p>
+  </div>
+</div>
+
+<!-- Data Section -->
+<div class="bgimg-7 w3-display-container w3-opacity-min" id="data">
+  <div class="w3-display-middle" style="white-space:nowrap;">
+    <span class="w3-center w3-padding-large w3-white w3-xlarge w3-wide w3-animate-opacity w3-opacity-min">
+      <b>THE DATA</b></span>
+  </div>
+</div>
+
+<div class="w3-content w3-container w3-padding-64">
+  <div style="margin-left:80px; margin-right:80px;">
+    <p class="w3-center w3-large"><em><font face = 'times' size = '5px' color="#F1C40F">The Data</font></em></p>
+    <p class="w3-large" style="text-align:justify">
+      Our regression was built on data from DunnHumby: The Complete Journey, which contained grocery purchase data for 2,500 American families over approximately 2 years. Since individual food loss data does not exist, we created simulated data using a Mechanical Turk survey. We asked three thousand users to complete their food wastage for their last grocery trip; we then matched the variance in the simulated loss for the DunnHumby data to the survey and the mean to the studies on aggregated food waste. We used variables based on demographic data, personal shopping patterns, global shopping patterns, lagged variables, and random noise in order to accomplish this.
+    </p>
+  </div>
+</div>
+
+<div class="bgimg-5 w3-display-container w3-opacity-min" id="grocery-saver">
+  <div class="w3-display-middle" style="white-space:nowrap;">
+    <span class="w3-center w3-padding-large w3-white w3-xlarge w3-wide w3-animate-opacity w3-opacity-min">
+      <b>GROCERY SAVER</b></span>
+  </div>
+</div>
+<div class="w3-content w3-container w3-padding-64">
+  <div style="margin-left:80px; margin-right:80px;">
+    <p class="w3-center w3-large"><em><font face = 'times' size = '5px' color="#F1C40F">The Grocery Saver Demo Site</font></em></p>
+    <p class="w3-large" style="text-align:justify">
+      Please click on the Grocery Saver button on the top toolbar to see our demo product. The system is designed to work best over time, so you need to use an already established account to have a complete experience (User ID: 184, Password: na). Here you can upload a set of new receipts (our system is designed to use Walmart receipts as it utilizes the Walmart API. You can upload new Walmart receipts, but due to the fact that the DunnHumby data and the Walmart receipts do not use the same product id, new receipts will have trouble lining up with the database), view past receipts and change past food waste levels, create a new grocery list with a customizable food waste tolerance, and visually explore purchase and wastage patterns.
+      <hr />
+      You can also watch the video below to see a walkthrough of Grocery Saver.
+      <div style='text-align: center'>
+        <video width="768" height="432" controls>
+          <source src="video/Food_Waste_Demo_Final.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+      </div>
+    </p>
+  </div>
+</div>
+
+<!-- About Us Section -->
+<div class="bgimg-8 w3-display-container w3-opacity-min" id="about">
+  <div class="w3-display-middle" style="white-space:nowrap;">
+    <span class="w3-center w3-padding-large w3-white w3-xlarge w3-wide w3-animate-opacity w3-opacity-min">
+      <b>ABOUT US</b></span>
+  </div>
+</div>
+
+<div class="w3-content w3-container w3-padding-64">
+
+
+  <div class="w3-quarter m8 w3-panel">
+    <img src="images/adam.jpg" style="width:100">
+    <div class="w3-large w3-margin-top">
+      <i class="fa fa-user fa-fw w3-large w3-margin-right"></i><font size = "2"><b>Adam Reilly</font></b><br>
+      <i class="fa fa-map-marker fa-fw w3-large w3-margin-right"></i><font size = "2">Los Angeles, CA</font><br>
+      <a href="mailto:adam.reilly@ischool.berkeley.edu">
+        <i class="fa fa-envelope fa-fw w3-hover-text-black w3-large w3-margin-right"></i>
+        <font size = "2">adam.reilly@ischool.berkeley.edu</font><br>
+      </a>
+      <div class="w3-col s11">
+        <p class="w3-medium">Adam comes to Berkeley with experience in the real estate finance industry. Prior to that
+          he studied at Occidental College</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-quarter m8 w3-panel">
+    <img src="images/raj.jpeg" style="width:100">
+    <div class="w3-large w3-margin-top">
+      <i class="fa fa-user fa-fw w3-large w3-margin-right"></i><font size = "2"><b>Varadarajan Srinivasan</font></b><br>
+      <i class="fa fa-map-marker fa-fw w3-large w3-margin-right"></i><font size = "2">Raleigh, NC</font><br>
+      <a href="mailto:svaradarajan1982@berkeley.edu">
+        <i class="fa fa-envelope fa-fw w3-hover-text-black w3-large w3-margin-right"></i>
+        <font size = "2">svaradarajan1982@berkeley.edu</font><br>
+      </a>
+      <div class="w3-col s11">
+        <p class="w3-medium">Raj is a director of data engineering at LexisNexis. He has a MS in Electrical Engineering
+          from Vanderbilt</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-quarter m8 w3-panel">
+    <img src="images/peter.jpg" style="width:100">
+    <div class="w3-large w3-margin-top">
+      <i class="fa fa-user fa-fw w3-large w3-margin-right"></i><font size = "2"><b>Peter Zhou</font></b><br>
+      <i class="fa fa-map-marker fa-fw w3-large w3-margin-right"></i><font size = "2">Los Angeles, CA</font><br>
+      <a href="mailto:pzhou11@berkeley.edu">
+        <i class="fa fa-envelope fa-fw w3-hover-text-black w3-large w3-margin-right"></i>
+        <font size = "2">pzhou11@berkeley.edu</font><br>
+      </a>
+      <div class="w3-col s11">
+        <p class="w3-medium">Peter is a consultant in hospital operations and finance. He has a B.A. in Business
+        Economics from UC Irvine</p>
+      </div>
+    </div>
+  </div>
+  <div class="w3-quarter m8 w3-panel">
+    <img src="images/chuqing.jpeg" style="width:100">
+    <div class="w3-large w3-margin-top">
+      <i class="fa fa-user fa-fw w3-large w3-margin-right"></i><font size = "2"><b>Chuqing He</font></b><br>
+      <i class="fa fa-map-marker fa-fw w3-large w3-margin-right"></i><font size = "2">San Francisco, CA</font><br>
+      <a href="mailto:chqngh@berkeley.edu">
+        <i class="fa fa-envelope fa-fw w3-hover-text-black w3-large w3-margin-right"></i>
+        <font size = "2">chqngh@berkeley.edu</font><br>
+      </a>
+      <div class="w3-col s11">
+        <p class="w3-medium">Chuqing is a senior software engineer with extensive experience in startup environments. He
+          has a B.S. in Mathematics and Computer Science from Vanderbilt</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+Bottle
+numpy
+pandas
+pytesseract
+fuzzywuzzy
+psycopg2
+gevent
+orderedset

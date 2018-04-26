@@ -1,0 +1,54 @@
+version: '3'
+services:
+  db:
+    image: mariadb:latest
+    build: ./sql
+    ports:
+      - '3306:3306'
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - ./sql:/sql
+    networks:
+       - overlay
+    expose:
+     - "3306"
+  frontend:
+    build: ./frontend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./frontend:/frontend
+  backend:
+    build: ./backend
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./backend:/backend
+    networks:
+       - overlay
+  infomatics:
+    build: ./informational-analytics
+    ports:
+      - "8585:8585"
+  customeranalytics:
+    build: ./customer-analytics
+    ports:
+      - "8065:8065"
+    volumes:
+      - ./customer-analytics:/customer_analytics
+    networks:
+       - overlay
+  intro:
+    build: ./intro
+    ports:
+      - "8586:8586"
+  r_api:
+    build: ./R_api
+    ports:
+      - "8282:8282"
+    networks:
+      - overlay
+
+networks:
+  overlay:
