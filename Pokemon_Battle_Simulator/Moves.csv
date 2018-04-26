@@ -1,0 +1,66 @@
+Name,Type,Pokemon Type,Power,Acc.,Effect
+Acid,POISON,POISON,40,100,May lower opponent's Special Defense.
+Aurora Beam,ICE,ICE,65,100,May lower opponent's Attack.
+Bite,DARK,DARK,60,100,May cause flinching.
+Blizzard,ICE,ICE,110,70,May freeze opponent.
+Bone Club,GROUND,GROUND,65,85,May cause flinching.
+Bubble,WATER,WATER,40,100,May lower opponent's Speed.
+Confusion,PSYCHIC,PSYCHIC,50,100,May confuse opponent.
+Constrict,NORMAL,BUG,10,100,May lower opponent's Speed by one stage.
+Cut,NORMAL,GRASS,50,95,
+Dream Eater,PSYCHIC,PSYCHIC,100,100,User recovers half the HP inflicted on a sleeping opponent.
+Drill Peck,FLYING,FLYING,80,100,
+Earthquake,GROUND,GROUND,100,100,Power is doubled if opponent is underground from using Dig.
+Ember,FIRE,FIRE,40,100,May burn opponent.
+Fire Blast,FIRE,FIRE,110,85,May burn opponent.
+Fire Punch,FIRE,FIRE,75,100,May burn opponent.
+Flamethrower,FIRE,FIRE,90,100,May burn opponent.
+Gust,FLYING,FLYING,40,100,Hits PokÈmon using Fly/Bounce with double power.
+Hydro Pump,WATER,WATER,110,80,
+Ice Beam,ICE,ICE,90,100,May freeze opponent.
+Ice Punch,ICE,ICE,75,100,May freeze opponent.
+Jump Kick,FIGHTING,FIGHTING,100,95,"If it misses, the user loses half their HP."
+Karate Chop,FIGHTING,FIGHTING,50,100,High critical hit ratio.
+Lick,GHOST,GHOST,30,100,May paralyze opponent.
+Pay Day,NORMAL,NORMAL,40,100,A small amount of money is gained after the battle resolves.
+Peck,FLYING,FLYING,35,100,
+Poison Sting,POISON,POISON,15,100,May poison the opponent.
+Psybeam,PSYCHIC,PSYCHIC,65,100,May confuse opponent.
+Psychic,PSYCHIC,PSYCHIC,90,100,May lower opponent's Special Defense.
+Razor Leaf,GRASS,GRASS,55,95,High critical hit ratio.
+Rock Slide,ROCK,ROCK,75,90,May cause flinching.
+Rock Throw,ROCK,ROCK,50,90,
+Rolling Kick,FIGHTING,FIGHTING,60,85,May cause flinching.
+Slam,NORMAL,NORMAL,80,75,
+Sludge,POISON,POISON,65,100,May poison opponent.
+Smog,POISON,POISON,30,70,May poison opponent.
+Submission,FIGHTING,FIGHTING,80,80,User receives recoil damage.
+Surf,WATER,WATER,90,100,Hits all adjacent PokÈmon.
+Swift,NORMAL,NORMAL,60,100,Ignores Accuracy and Evasiveness.
+Tackle,NORMAL,NORMAL,50,100,
+Thunder,ELECTRIC,ELECTRIC,110,70,May paralyze opponent.
+Thunder Punch,ELECTRIC,ELECTRIC,75,100,May paralyze opponent.
+Thunder Shock,ELECTRIC,ELECTRIC,40,100,May paralyze opponent.
+Thunderbolt,ELECTRIC,ELECTRIC,90,100,May paralyze opponent.
+Vine Whip,GRASS,GRASS,45,100,
+Water Gun,WATER,WATER,40,100,
+Wing Attack,FLYING,FLYING,60,100,
+Razor Leaf,GRASS,BUG,55,95,High critical hit ratio.
+Vine Whip,GRASS,BUG,45,100,
+Bone Club,GROUND,ROCK,65,85,May cause flinching.
+Earthquake,GROUND,ROCK,100,100,Power is doubled if opponent is underground from using Dig.
+Rock Slide,ROCK,GROUND,75,90,May cause flinching.
+Rock Throw,ROCK,GROUND,50,90,
+Tackle,NORMAL,GRASS,50,100,
+Pound,NORMAL,BUG,40,100,
+Swift,NORMAL,FAIRY,60,100,Ignores Accuracy and Evasiveness.
+Pay Day,NORMAL,FAIRY,40,100,A small amount of money is gained after the battle resolves.
+Pound,NORMAL,FAIRY,40,100,
+Dizzy Punch,NORMAL,FAIRY,70,100,May confuse opponent.
+Psychic,PSYCHIC,GHOST,90,100,May lower opponent's Special Defense.
+Bite,DARK,GHOST,60,100,May cause flinching.
+Confusion,PSYCHIC,GHOST,50,100,May confuse opponent.
+Psybeam,PSYCHIC,DRAGON,65,100,May confuse opponent.
+Ice Beam,ICE,DRAGON,90,100,May freeze opponent.
+Aurora Beam,ICE,DRAGON,65,100,May lower opponent's Attack.
+Wing Attack,FLYING,DRAGON,60,100,
