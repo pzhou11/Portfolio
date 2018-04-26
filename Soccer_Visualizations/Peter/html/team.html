@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+
+<style>
+    .pitch {
+        fill:#0CE88A; 
+    }
+
+    .pitchlines {
+        fill: none;
+        stroke: #FFF;
+        stroke-width: 4;
+    }
+
+    .ids {
+        fill: #F00;
+    }
+
+    .polygons {
+        fill: none;
+        stroke: #FF0;
+        stroke-width: 2;
+    }
+
+    .spread {
+        fill: #008000;
+        opacity: 0.3;
+    }
+
+    .time.label {
+        font: 500 98px "Helvetica Neue";
+        fill: #ddd;
+    }
+
+    .time.label.active {
+        fill: #aaa;
+    }
+
+    .overlay {
+        fill: none;
+        pointer-events: all;
+        cursor: ew-resize;
+    }
+
+    .grapharea {
+        fill: #3399FF;
+    }
+
+    .graphline {
+        fill: black;
+        opacity: 0.3;
+    }
+
+</style>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Team Analysis</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="icon/favicon.ico">
+    <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+   	<div class="jumbotron feature" style="background:transparent url('img/background.jpg') no-repeat center center /cover">
+		<div class="container"> 
+			<h1><span class="glyphicon glyphicon-dashboard"></span> Team Analysis </h1>
+			<p>Team spread and player coverage areas</p>
+		</div>
+    </div>
+
+    <div class="container">
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="spreadToggle" checked> Team Spread Box 
+            </label>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="polygonToggle" checked> Player Coverage Areas
+            </label>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div id="divpitch"></div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div id="divgraph"></div>
+        </div>
+    </div>
+  
+<script type="text/javascript">
+    // Setup settings for graphic
+    var pw = 105; // length of soccer pitch in meters
+    var ph = 68; // width of soccer pitch in meters
+    var scaling = 7; // scaling factor
+    var width = pw * scaling; // 105m x 7 scaling factor for pitch
+    var height = ph * scaling; // 68m x 7 scaling factor for pitch
+    var padding = 25;  // Padding around canvas, i.e. replaces the 0 of scale
+
+    // Create SVG elements
+    var svg = d3.select("#divpitch")  // Football pitch
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    var svggraph = d3.select("#divgraph") // Graph below pitch
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height / 3);
+        
+    // Build pitch image
+    svg.append("rect")
+        .attr("class", "pitch")
+        .attr("width", "100%")
+        .attr("height", "100%");
+
+    svg.append("rect")
+        .attr("class", "pitchlines")
+        .attr("x", 0)
+        .attr("y", (ph - 40.3) / 2 * scaling)
+        .attr("height", 40.3 * scaling)
+        .attr("width", 16.5 * scaling);
+
+    svg.append("rect")
+        .attr("class", "pitchlines")
+        .attr("x", 0)
+        .attr("y", ((ph - 40.3) / 2 * scaling) + (11 * scaling))
+        .attr("height", 18.3 * 7)
+        .attr("width", 5.5 * 7);
+
+    svg.append("rect")
+        .attr("class", "pitchlines")
+        .attr("x", (pw - 16.5) * scaling)
+        .attr("y", (ph - 40.3) / 2 * scaling)
+        .attr("height", 40.3 * scaling)
+        .attr("width", 16.5 * scaling);
+
+    svg.append("rect")
+        .attr("class", "pitchlines")
+        .attr("x", (pw - 5.5) * scaling)
+        .attr("y", ((ph - 40.3) / 2 * scaling) + (11 * scaling))
+        .attr("height", 18.3 * scaling)
+        .attr("width", 5.5 * scaling);
+
+    svg.append("line")
+        .attr("class", "pitchlines")
+        .attr("x1", ((pw / 2) * scaling) - 2)
+        .attr("y1", 0)
+        .attr("x2", ((pw / 2) * scaling) - 2)
+        .attr("y2", height);
+
+    svg.append("circle")
+        .attr("class", "pitchlines")
+        .attr("cx", width / 2)
+        .attr("cy", height / 2)
+        .attr("r", 9.15 * scaling);
+
+    // Define Scales - scales map an input domain with an output range
+    var xScale = d3.scaleLinear()
+        .domain([0, pw])
+        .range([padding, width - padding * 2])  // set the output range
+        .nice();  // Make decimals round up nicely
+
+    var yScale = d3.scaleLinear()
+        .domain([0, ph])
+        .range([height - padding, padding])  // set the output range
+        .nice();  // Make decimals round up nicely
+
+    var voronoi = d3.voronoi()
+        .extent([[-1, -1], [width + 1, height + 1]]);
+
+    var parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
+
+    d3.csv("data/team_data.csv" + "?" + Math.floor(Math.random() * 1000), function(d) {
+        return {
+           ts: parseDate(d.ts.substring(1,19)),
+           id: +d.id,
+           x: +d.x,
+           y: 68 - d.y,
+           x_min: +d.x_min,
+           x_max: +d.x_max,
+           y_min: 68 - d.y_min,
+           y_max: 68 - d.y_max,
+           area: (d.x_max - d.x_min) * (d.y_max - d.y_min)
+        };
+    }, function(error, data) {
+
+        var datalength = data.length;
+        var dataEndTime = new Date(data[datalength-1].ts.getTime());
+        var dataStartTime = new Date(data[0].ts.getTime());
+        var totalmatchTime = Math.abs(dataEndTime - dataStartTime);
+
+        var currentTime = new Date(data[0].ts.getTime());
+        var currentTimeMS = new Date(data[0].ts.getTime());
+        var matchTime = Math.abs(currentTime - dataStartTime);
+        var matchDateTime = new Date(matchTime);
+        var clockFormat = d3.timeFormat("%M:%S");
+        var matchClock = clockFormat(matchDateTime);
+
+        var nested_data = d3.nest()
+            .key(function (d) {
+                return d.ts;
+            })
+            .entries(data);
+
+        var current_data = nested_data.filter(function (d) {
+            return d.key == currentTime
+        });
+
+        var dataset = current_data[0].values;
+        var datalength = dataset.length;
+
+        var spread = dataset.slice(0,1);
+        var areas = [];
+        var players = [];
+        for (var i = 0; i < datalength; i++) {
+            if (dataset[i].x < 105 && dataset[i].x > 0 && dataset[i].y < 68 && dataset[i].y > 0) {
+                areas.push([xScale(dataset[i].x), yScale(dataset[i].y)]);
+                players.push([xScale(dataset[i].x), yScale(dataset[i].y)]);
+            }; 
+        };
+
+        var graphgroup = d3.nest()
+            .key(function (d) {
+                return d.ts;
+            })
+            .rollup(function (v) {
+                return {
+                    ts0 : d3.min(v, function (d) { return d.ts; }),
+                    area: d3.median(v, function (d) { return d.area; }) 
+                }
+            })
+            .entries(data);
+
+        var gxScale = d3.scaleTime()
+            .domain([dataStartTime, dataEndTime])
+            .range([0,width]);
+
+        var gyScale = d3.scaleLinear()
+            .domain([0, d3.max(graphgroup, function(d) { return d.value.area; })])
+            .range([0,height/3]);
+
+        var grapharea = d3.area()
+            .curve(d3.curveBasis)
+            .x(function (d) { return gxScale(d.value.ts0); })
+            .y0(height/3)
+            .y1(function (d) { return height/3 - gyScale(d.value.area); });
+
+        svggraph.append("path")
+            .attr("class", "grapharea")
+            .data([graphgroup])
+            .attr("d", grapharea);
+
+        svggraph.append("g")
+            .attr("class", "graphline")
+            .selectAll("rect")
+            .data(spread)
+            .enter()
+            .append("rect")
+            .attr("x", function(d) { return gxScale(currentTime); })
+            .attr("y", function(d) { return 0; })
+            .attr("width", function(d) { return 5; })
+            .attr("height", function(d) { return height/3; });
+
+        svg.append("g")
+            .attr("class", "ids")
+            .selectAll("circle")
+            .data(players)
+            .enter()
+            .append("circle")
+            .attr("cx", function(d) { return d[0]; })
+            .attr("cy", function(d) { return d[1]; })
+            .attr("r", 5);
+
+        svg.append("g")
+            .attr("class", "polygons")
+            .selectAll("path")
+            .data(voronoi.polygons(areas))
+            .enter()
+            .append("path")
+            .attr("d", function(d) { return d ? "M" + d.join("L") + "Z" : null; });
+
+        svg.append("g")
+            .attr("class", "spread")
+            .selectAll("rect")
+            .data(spread)
+            .enter()
+            .append("rect")
+            .attr("x", function(d) { return xScale(d.x_min)-5; })
+            .attr("y", function(d) { return yScale(d.y_min)-5; })
+            .attr("width", function(d) { return xScale(d.x_max) - xScale(d.x_min)+10; })
+            .attr("height", function(d) { return yScale(d.y_max) - yScale(d.y_min)+10; });
+
+        var timelabel = svg.append("text")
+            .attr("class", "time label")
+            .attr("text-anchor", "end")
+            .attr("y", height - 8)
+            .attr("x", width)
+            .text(matchClock);
+
+        var box = timelabel.node().getBBox();
+        
+        var overlay = svg.append("rect")
+            .attr("class", "overlay")
+            .attr("x", 0)
+            .attr("y", box.y)
+            .attr("width", width)
+            .attr("height", box.height)
+            .on("mouseover", enableInteraction);
+
+        d3.select("#spreadToggle").on("change", updateField);
+        d3.select("#polygonToggle").on("change", updateField);
+
+        function enableInteraction() {
+            var matchtimeScale = d3.scaleLinear()
+                .domain([dataStartTime, dataEndTime])
+                .range([10, width - 10])
+                .clamp(true);
+
+            // Cancel the current transition, if any.
+            svg.transition().duration(0);
+
+            overlay
+                .on("mouseover", mouseover)
+                .on("mouseout", mouseout)
+                .on("mousemove", mousemove)
+                .on("touchmove", mousemove);
+
+            function mouseover() {
+                timelabel.classed("active", true);
+            }
+
+            function mouseout() {
+                timelabel.classed("active", false);
+            }
+
+            function mousemove() {
+                currentTimeMS = matchtimeScale.invert(d3.mouse(this)[0]);
+                updateField();
+            }
+
+        }
+
+        function updateField() {
+
+            currentTime = new Date(currentTimeMS);
+            matchTime = Math.abs(currentTimeMS - dataStartTime);
+            matchDateTime = new Date(matchTime);
+            matchClock = clockFormat(matchDateTime);
+
+            timelabel.text(matchClock);
+
+            var current_data = nested_data.filter(function (d) {
+                return d.key == currentTime
+            });
+
+            var dataset = current_data[0].values;
+            var datalength = dataset.length;
+
+            spread = dataset.slice(0,1);
+            areas = [];
+            players = [];
+            for (var i = 0; i < datalength; i++) {
+                if (dataset[i].x < 105 && dataset[i].x > 0 && dataset[i].y < 68 && dataset[i].y > 0) {
+                    areas.push([xScale(dataset[i].x), yScale(dataset[i].y)]);
+                    players.push([xScale(dataset[i].x), yScale(dataset[i].y)]);
+                }; 
+            };
+
+            // Update all items
+            svg.select(".ids")
+                .selectAll("circle")
+                .data(players)
+                .attr("cx", function(d) { return d[0]; })
+                .attr("cy", function(d) { return d[1]; });
+
+            svg.select(".polygons")
+                .selectAll("path")
+                .data(voronoi.polygons(areas))
+                .attr("d", function(d) { return d ? "M" + d.join("L") + "Z" : null; });
+
+            if (d3.select("#polygonToggle").property("checked")) {
+                svg.select(".polygons")
+                    .selectAll("path")
+                    .style("stroke-opacity", 1);
+            } else {
+                svg.select(".polygons")
+                    .selectAll("path")
+                    .style("stroke-opacity", 0);
+            }
+
+            svg.select(".spread")
+                .selectAll("rect")
+                .data(spread)
+                .attr("x", function(d) { return xScale(d.x_min)-5; })
+                .attr("y", function(d) { return yScale(d.y_min)-5; })
+                .attr("width", function(d) { return xScale(d.x_max) - xScale(d.x_min)+10; })
+                .attr("height", function(d) { return yScale(d.y_max) - yScale(d.y_min)+10; });
+
+            if (d3.select("#spreadToggle").property("checked")) {
+                svg.select(".spread")
+                    .selectAll("rect")
+                    .style("opacity", 1);
+            } else {
+                svg.select(".spread")
+                    .selectAll("rect")
+                    .style("opacity", 0);
+            }
+
+            svggraph.select(".graphline")
+                .selectAll("rect")
+                .data(spread)
+                .attr("x", function(d) { return gxScale(currentTime); });
+
+        }
+    });
+ 
+</script>
+</body>
+</html>

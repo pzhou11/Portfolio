@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fitness Analysis: Energy Expenditure</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
+    <link href="css/custom.css" rel="stylesheet">
+    <link rel="shortcut icon" href="icon/favicon.ico">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+<style>
+
+.axis .domain {
+  display: none;
+}
+
+</style>
+
+<body>
+    <div class="jumbotron feature" style="background:transparent url('img/background.jpg') no-repeat center center /cover">
+        <div class="container"> 
+            <h1><span class="glyphicon glyphicon-dashboard"></span> Fitness Analysis</h1>
+            <p>Team and player distance covered, top speed, and average speed</p>
+        </div>
+    </div>
+    <style>
+        body {
+          margin: 0;
+          font-size: 14px;
+          font-family: "Helvetica Neue", Helvetica;
+        }
+    </style>
+
+    <p>Select First Player/Team:</p>
+    <div>
+        <select id="inds">
+            <option value="Team-110313" selected="selected">Team Total: 11/03/13</option>
+            <option value="1-110313">Player 1: 11/03/13</option>
+            <option value="2-110313">Player 2: 11/03/13</option>
+            <option value="5-110313">Player 5: 11/03/13</option>
+            <option value="6-110313">Player 6: 11/03/13</option>
+            <option value="7-110313">Player 7: 11/03/13</option>
+            <option value="8-110313">Player 8: 11/03/13</option>
+            <option value="9-110313">Player 9: 11/03/13</option>
+            <option value="10-110313">Player 10: 11/03/13</option>
+            <option value="11-110313">Player 11: 11/03/13</option>
+            <option value="13-110313">Player 13: 11/03/13</option>
+            <option value="14-110313">Player 14: 11/03/13</option>
+            <option value="15-110313">Player 15: 11/03/13</option>
+            <option value="Team-110713">Team Total: 11/07/13</option>
+            <option value="2-110713">Player 2: 11/07/13</option>
+            <option value="6-110713">Player 6: 11/07/13</option>
+            <option value="7-110713">Player 7: 11/07/13</option>
+            <option value="8-110713">Player 8: 11/07/13</option>
+            <option value="10-110713">Player 10: 11/07/13</option>
+            <option value="11-110713">Player 11: 11/07/13</option>
+            <option value="12-110713">Player 12: 11/07/13</option>
+            <option value="13-110713">Player 13: 11/07/13</option>
+            <option value="15-110713">Player 15: 11/07/13</option>
+            <option value="16-110713">Player 16: 11/07/13</option>
+        </select> 
+
+        <p>Select Second Player/Team:</p>
+        <select id="inds2">
+            <option value="Team-110313">Team Total: 11/03/13</option>
+            <option value="1-110313">Player 1: 11/03/13</option>
+            <option value="2-110313">Player 2: 11/03/13</option>
+            <option value="5-110313">Player 5: 11/03/13</option>
+            <option value="6-110313">Player 6: 11/03/13</option>
+            <option value="7-110313">Player 7: 11/03/13</option>
+            <option value="8-110313">Player 8: 11/03/13</option>
+            <option value="9-110313">Player 9: 11/03/13</option>
+            <option value="10-110313">Player 10: 11/03/13</option>
+            <option value="11-110313">Player 11: 11/03/13</option>
+            <option value="13-110313">Player 13: 11/03/13</option>
+            <option value="14-110313">Player 14: 11/03/13</option>
+            <option value="15-110313">Player 15: 11/03/13</option>
+            <option value="Team-110713" selected="selected">Team Total: 11/07/13</option>
+            <option value="2-110713">Player 2: 11/07/13</option>
+            <option value="6-110713">Player 6: 11/07/13</option>
+            <option value="7-110713">Player 7: 11/07/13</option>
+            <option value="8-110713">Player 8: 11/07/13</option>
+            <option value="10-110713">Player 10: 11/07/13</option>
+            <option value="11-110713">Player 11: 11/07/13</option>
+            <option value="12-110713">Player 12: 11/07/13</option>
+            <option value="13-110713">Player 13: 11/07/13</option>
+            <option value="15-110713">Player 15: 11/07/13</option>
+            <option value="16-110713">Player 16: 11/07/13</option>
+        </select> 
+
+        <p>Select Speed:</p>
+            <select id="speed">
+                <option value=18 selected="selected">All Speeds</option>
+                <option value=0>0-3 m/s</option>
+                <option value=6>3-5 m/s</option>
+                <option value=12>5+ m/s</option>
+            </select> 
+    </div>
+  </body>
+
+ <svg width="700" height="400" left="250"></svg>
+ <script type="text/javascript" src="barchart.js"></script>
+
+</html> 

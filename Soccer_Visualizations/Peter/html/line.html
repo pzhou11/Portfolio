@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fitness Analysis: Energy Expenditure</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS: You can use this stylesheet to override any Bootstrap styles and/or apply your own styles -->
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="icon/favicon.ico">
+    <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <div class="jumbotron feature" style="background:transparent url('img/background.jpg') no-repeat center center /cover">
+    <div class="container"> 
+      <h1><span class="glyphicon glyphicon-dashboard"></span> Fitness Analysis</h1>
+      <p>Team and player energy expenditure throughout a match</p>
+    </div>
+    </div>
+
+  <style>
+    body {
+      margin: 0;
+      font-size: 14px;
+      font-family: "Helvetica Neue", Helvetica;
+    }
+
+    #chart {
+      position: relative;
+      top: -150px;
+      left: 500px
+    } 
+  </style>
+  <body>
+      <p>About:</p>
+      <p>This graph shows the energy expenditure by player(s) and team(s) throughout the course of a match</p>
+      <p>The graph defaults to the Team Total for 11/03/13 and 11/07/13. You can compare other players selecting and deselecting the player in the legend. You can also compare energy expenditures across different speeds</p>
+      <p>Select Speed:</p>
+      <select id="speed">
+      <option value=18 selected="selected">All Speeds</option>
+      <option value=0>0-3 m/s</option>
+      <option value=6>3-5 m/s</option>
+      <option value=12>5+ m/s</option>
+
+      </select> 
+    </div>
+
+  <div id="chartContainer">
+    <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+    <script src="http://d3js.org/d3.v4.min.js"></script>
+    <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+
+    <script type="text/javascript">
+      var svg = dimple.newSvg("#chartContainer", 900, 500);
+      var tt = function(a) {
+
+        d3.csv("data/TimeEnergy"+a+".csv", function (data) {
+
+        var myChart = new dimple.chart(svg, data);
+        myChart.setBounds(50, 50, 600, 400);
+        var x = myChart.addCategoryAxis("x", "time");
+        x.addOrderRule("time");
+        myChart.addMeasureAxis("y", "energy");
+        var s = myChart.addSeries("id", dimple.plot.line);
+        s.interpolation = "cardinal";      
+
+        var myLegend = myChart.addLegend("70%", "5%", 300, "80%", "left");
+          
+        myChart.draw();
+
+        // This is a critical step.  By doing this we orphan the legend. This
+        // means it will not respond to graph updates.  Without this the legend
+        // will redraw when the chart refreshes removing the unchecked item and
+        // also dropping the events we define below.
+        myChart.legends = [];
+
+        filterValues = []; 
+        // Get all the rectangles from our now orphaned legend
+        myLegend.shapes.selectAll("rect").on("click", function (e) {
+          // This indicates whether the item is already visible or not
+          var hide = false;
+          var newFilters = [];
+          // If the filters contain the clicked shape hide it
+          filterValues.forEach(function (f) {
+            if (f === e.aggField.slice(-1)[0]) {
+              hide = true;
+            } else {
+              newFilters.push(f); 
+            }
+          });
+          
+          // Hide the shape or show it
+          if (hide) {
+            d3.select(this).style("opacity", 0.2);
+          } else {
+            newFilters.push(e.aggField.slice(-1)[0]);
+            d3.select(this).style("opacity", 0.8);
+          }
+          
+          // Update the filters
+          filterValues = newFilters;
+
+          // Filter the data
+          myChart.data = dimple.filterData(data, "id", filterValues);
+          // Passing a duration parameter makes the chart animate. Without
+          // it there is no transition
+          myChart.draw(800);
+        });
+            
+        myLegend.shapes.selectAll("rect").style("opacity", 0.2);
+        filterValues = ["Team Total 11/03/17", "Team Total 11/07/17"]; 
+         var x = d3.select("#dimple-legend dimple-legend-key dimple-texas dimple-custom-legend-key dimple-custom-format-1").style("opacity", 0.8); 
+        console.log(x);
+          
+        // Filter the data
+        myChart.data = dimple.filterData(data, "id", filterValues);
+        // Passing a duration parameter makes the chart animate. Without
+        // it there is no transition
+
+        myLegend.shapes.selectAll("rect").each(function(d) {
+          // your update code here as it was in your example
+          if (this.getAttribute("class") === "dimple-legend dimple-legend-key dimple-1 dimple-custom-legend-key dimple-custom-format-1"
+             || this.getAttribute("class") === "dimple-legend dimple-legend-key dimple-2 dimple-custom-legend-key dimple-custom-format-3"
+             ) { 
+            d3.select(this).style("opacity", 0.8); // Transform to d3 Object    
+          }
+
+        });
+       
+        myChart.draw(); 
+        });
+      };
+
+      // initize graph
+      tt(18)
+
+      //on change
+      d3.select("#speed").on("change", function() {
+        var speed_sect = document.getElementById("speed");
+        var speed_section = Number(speed_sect.options[speed_sect.selectedIndex].value);
+        
+        d3.selectAll('svg > g > *').remove();
+
+        tt(speed_section)
+      });
+    </script>
+  </div>
+
+</html>
