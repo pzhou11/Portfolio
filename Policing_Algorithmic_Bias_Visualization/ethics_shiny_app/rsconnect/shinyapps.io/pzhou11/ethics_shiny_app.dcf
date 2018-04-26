@@ -1,0 +1,10 @@
+name: ethics_shiny_app
+title:
+username:
+account: pzhou11
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 247801
+bundleId: 1143768
+url: https://pzhou11.shinyapps.io/ethics_shiny_app/
+when: 1513737695.82324
